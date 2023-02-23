@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- 절대 경로, 상대 경로 모두 가능  -->
+<th:block th:replace="~{./include/basicLayout :: func(~{::.wrap})}">
+   
+
+
+    <div class="wrap">
+        <div class="warp_inner">
+            <div class="right_content">
+                <div class="midiaq">
+                    <div class="page_title">상품 관리 > 상품 등록</div>
+
+                    <form name="productForm" action="registForm" method="post" enctype="multipart/form-data">
+                        <div class="full_collum collum">
+                            <ul>
+                                <li class="collum_tit">
+                                    <h2>게시글관리</h2>
+
+                                    <span class="showtoggle minus"></span>
+                                    <ul>
+                                        <li>
+                                            <table cellpadding="0" cellspacing="0" class="board_basic_view"
+                                                width="100%;">
+                                                <tr>
+                                                    <th>판매종료일</th>
+                                                    <td colspan="5">
+                                                        <input type="text" class="datepicker" name="prod_enddate" readonly required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="날짜선택">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>카테고리</th>
+                                                    <td colspan="5" >
+                                                        <!-- 카테고리값을 담는 태그 -->
+                                                        <input type="text" name="prod_category" value="">
+	
+                                                        <div class="loading" style="display: none;">
+                                                            <div class="loader" ></div>
+                                                            <div class="loading-overlay" ></div>
+                                                        </div>
+
+                                                        <div style="color:red">상품등록 완료 후에는 수정이 불가능하니 신중히 선택해주세요.</div>
+                                                        <div class="categoryListWrap">
+                                                          <!--   <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);" >
+                                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "A" }'>패션의류</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "B" }'>뷰티</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "1", "group_id": "C" }'>식품</a></li>
+                                                                
+                                                            </ul> -->
+                                                           <!--  <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);">
+                                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>bbb</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>bbb</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>bbb</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>bbb</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "2", "group_id": "A" }'>bbb</a></li>
+                                                               
+                                                            </ul>
+                                                            <ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);">
+                                                                <li><a href="#" data-set='{"category_lv": "3", "group_id": "A" }'>ccc</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "3", "group_id": "A" }'>ccc</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "3", "group_id": "A" }'>ccc</a></li>
+                                                                <li><a href="#" data-set='{"category_lv": "3", "group_id": "A" }'>ccc</a></li>
+                                                                
+                                                            </ul> -->
+                                                        </div>
+                                                    
+                                                    </td>
+                                                </tr>
+                                                <!--
+                                                <tr>
+                                                    <th>대분류</th>
+                                                    <td>
+                                                        <select class="inputw150" onchange="category_List(this.value);">
+                                                            <option value="V00">aaa</option>
+                                                            <option value="V01">bbb</option>
+                                                            <option value="V02">ccc</option>
+                                                            <option value="V03">ddd</option>
+                                                            <option value="V04">eee</option>
+                                                            <option value="V05">fff</option>
+                                                        </select>
+                                                    </td>
+                                                    <th>중분류</th>
+                                                    <td>
+                                                        <select id="V_List" class="inputw150">
+                                                            <option value="">중</option>
+                                                            <option value="">중</option>
+                                                            <option value="">중</option>
+                                                            <option value="">중</option>
+                                                        </select>
+                                                    </td>
+                                                    <th>소분류</th>
+                                                    <td>
+                                                        <select id="V_List" class="inputw150">
+                                                            <option value="">소</option>
+                                                            <option value="">소</option>
+                                                            <option value="">소</option>
+                                                            <option value="">소</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                -->
+
+                                                <tr>
+                                                    <th>등록자ID</th>
+                                                    <td><input type="text" class="inputw150" name="prod_writer" value="" required></td>
+                                                    <!-- 
+                                                    <th>등록자이름</th>
+                                                    <td colspan="3"><input type="text" class="inputw150" name="prod_writer_name"  value=""></td>
+                                                     -->
+                                                </tr>
+
+                                                <tr>
+                                                    <th>제목(상품명)</th>
+                                                    <td colspan="5"><input type="text" class="inputw99p" name="prod_name" required></td>
+                                                </tr>
+
+                                                <tr> 
+                                                    <th>메인사진</th>
+                                                    <td colspan="3">
+                                                        <!--업로드 폼-->   
+                                                        <div class="filebox preview-image">
+                                                            <div style="color: red;">*이미지는 최초 등록후 추가가 불가능 합니다</div>
+                                                            <!--1 -->
+                                                            <div class="left">
+                                                                <span>메인이미지</span>
+                                                                <label class="upload-display" for="main_file">
+                                                                    <span class="upload-thumb-wrap">
+                                                                        <img class="upload-thumb" src="../img/plus_btn.png" >
+                                                                    </span>
+                                                                </label>
+                                                                <input class="upload-name" value="파일선택" disabled="disabled">
+                                                                <input type="file" name="file" id="main_file" class="upload-hidden">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr> 
+                                                    <th>배너사진</th>
+                                                    <td colspan="3">
+                                                    <div class="filebox preview-image">
+                                                        <!--1 -->
+                                                        <div class="left">
+                                                            <span>추가이미지</span>
+                                                            <label class="upload-display" for="a_file">
+                                                                <span class="upload-thumb-wrap">
+                                                                    <img class="upload-thumb" src="../img/plus_btn.png">
+                                                                </span>
+                                                            </label>
+                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                            <input type="file" name="file" id="a_file" class="upload-hidden">
+                                                        </div>
+                                                        <div class="left">
+                                                            <span>추가이미지</span>
+                                                            <label class="upload-display" for="b_file">
+                                                                <span class="upload-thumb-wrap">
+                                                                    <img class="upload-thumb" src="../img/plus_btn.png">
+                                                                </span>
+                                                            </label>
+                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                            <input type="file" name="file" id="b_file" class="upload-hidden">
+                                                        </div>
+                                                        <!--2(추가하려면 for, id를 변경하여 추가) -->
+                                                        <!--
+                                                        <div class="left">
+                                                            <span>추가이미지</span>
+                                                            <label class="upload-display" for="c_file">
+                                                                <span class="upload-thumb-wrap">
+                                                                    <img class="upload-thumb" src="../img/plus_btn.png">
+                                                                </span>
+                                                            </label>
+                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                            <input type="file" name="file" id="c_file" class="upload-hidden">
+                                                        </div>
+                                                        -->
+                                                    </div>
+                                                    
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th>판매가</th>
+                                                    <td colspan="3"><input type="text" class="inputw150" name="prod_price" value="" placeholder="3000" required pattern="\d*">원</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>판매수량</th>
+                                                    <td colspan="3"><input type="text" class="inputw150" name="prod_count" value="" placeholder="숫자로 입력" required pattern="\d*">개</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>할인율</th>
+                                                    <td colspan="3"><input type="text" class="inputw150" name="prod_discount" value=""  placeholder="15(숫자로 입력)" required pattern="\d*">%</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th>상품 구매 제한</th>
+                                                    <td colspan="3">
+                                                        <div class="uInputRadioBox">
+                                                            <div class="uInputRadio">
+                                                                <label>
+                                                                    <input type="radio"  name="prod_purchase_yn" value="N" checked="checked">
+                                                                    <span class="text">제한안함</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="uInputRadio">
+                                                                <label>
+                                                                    <input type="radio" name="prod_purchase_yn" value="Y" >
+                                                                    <span class="text">1회 제한</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                
+
+                                                <tr>
+                                                    <th>설명</th>
+                                                    <td colspan="5">
+
+                                                        <div><textarea  class="inputw99p" name="prod_content" style="height: 200px;" required></textarea>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <th>커맨트 내용</th>
+                                                    <td colspan="5">
+
+                                                        <div><textarea class="inputw99p" name="prod_comment" style="height: 200px;"></textarea>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                
+                                            </table>
+                                            <div class="btn_area">
+                                                <input type="submit" class="save" value="등록">
+                                            	<input type="button" class="delete" value="목록">
+                                                <!-- 
+                                                <a href="#" class="save">등록</a>
+                                                <a href="#" class="delete">목록</a>
+                                                <a href="#" class="revise mglr13">삭제</a> 
+                                                -->
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+
+
+                </div>
+                <!-- right_content end -->
+            </div>
+
+
+            <!-- warp_inner end -->
+            <div class="dim_layer">
+
+            </div>
+            <!-- wrap end -->
+        </div>
+
+        
+    </div>  
+  </th:block>
+  
+  <script th:inline="javascript">
+	var msg = JSON.parse('[[${msg}]]');
+	console.log(msg);
+	if (msg != null) {
+		alert(msg);
+	}
+
+</script>
+  
+  <script >
+   
+  
+     //화면이 로드가 일어난 후에 실행 (카테고리 데이터)
+     $(document).ready(function(){
+        
+        $.ajax({
+           url:"../getCategory",
+           type:"get",
+           success:function(result){
+              console.log(result)
+              
+           var str="";
+               
+              str += '<ul class="categoryList" style="position: relative;" onclick="getCategory_List(event);" >';
+              
+              result.forEach(function(item,index){
+                str += '<li><a href="#" data-set='+JSON.stringify(item) +'>'+item.category_detail_nm+'</a></li>';
+            	  
+              })
+                str += '</ul>';
+                $(".categoryListWrap").append(str); //자식으로 추가
+              
+           },
+           error: function(err){
+              alert("카테고리 조회에 실패했습니다. 담당자에게 문의하세요.");
+           }
+              
+        })
+     });
+  </script>
+  
+  
+  
+  
+
+</html>

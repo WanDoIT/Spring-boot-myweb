@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.coding404.myweb.product.service.ProductMapper">
+
+	<!-- 오라클은 대소문자 구분 상관 없지만 Mysql은 테이블명을 구분할 수도 있어서 잘 확인해야 함 -->
+	<!-- 상품 등록 기능 -->
+	<insert id="regist" parameterType="ProductVO">
+		insert into PRODUCT(prod_enddate,
+							prod_category,
+							prod_writer,
+							prod_name,
+							prod_price,
+							prod_count,
+							prod_discount,
+							prod_purchase_yn,
+							prod_content,
+							prod_comment)
+
+		values(#{prod_enddate},
+			   #{prod_category},
+			   #{prod_writer},
+			   #{prod_name},
+			   #{prod_price},
+			   #{prod_count},
+			   #{prod_discount},
+			   #{prod_purchase_yn},
+			   #{prod_content},
+			   #{prod_comment})
+	</insert>
+	<!-- 
+	1.insert 전에 product테이블의 키값을 selectkey태그를 이용해서 얻습니다.
+	2. resultType은 조회된 결과타입,
+	   keyProperty은 sql에 전달되는 vo의 저장할 key값
+	   order는 BEFORE/AFTER - 인서트 이전에 실행 or 인서트 이후에 실행할지 지정.
+	 -->
+	<insert id="registFile" parameterType="ProductUploadVO">
+		<selectKey resultType="int" keyProperty="prod_id" order="BEFORE">
+			select max(prod_id) as prod_id from PRODUCT where prod_writer = #{prod_writer}
+		</selectKey>
+		
+		insert into PRODUCT_UPLOAD(filename,
+									filepath,
+									uuid,
+									prod_id,
+									prod_writer)
+		values(#{filename},
+				#{filepath},
+				#{uuid},
+				#{prod_id},
+				#{prod_writer})
+	</insert>
+
+
+	<!-- 특정회원 조회기능 -->
+	<select id="getList" resultType="ProductVO">
+		select p.*,
+			   a.category_nav
+		from(
+			select * from product
+			where prod_writer = #{user_id}
+		
+			<if test="cri.startDate != null and cri.startDate != '' ">
+			<![CDATA[and date_format(prod_enddate, '%Y-%m-%d') >= date_format (#{cri.startDate},'%Y-%m-%d')]]>
+			</if>
+
+			<if test="cri.endDate != null and cri.endDate != '' ">
+			<![CDATA[and date_format(prod_enddate, '%Y-%m-%d') <= date_format (#{cri.endDate},'%Y-%m-%d')]]>
+			</if>
+		
+			<if test="cri.searchName != null and cri.searchName != '' ">
+			and prod_name like concat('%', #{cri.searchName}, '%')
+			</if>
+		
+			<if test="cri.searchContent != null and cri.searchContent != '' ">
+			and prod_content like concat('%', #{cri.searchContent}, '%')
+			</if>
+		
+			order by
+		
+			<if test="cri.searchPrice == 'asc' ">
+			prod_price asc, 
+			</if>
+			<if test="cri.searchPrice == 'desc' ">
+		 	prod_price desc,
+			</if>
+			
+			prod_id desc
+		
+			limit #{cri.pageStart}, #{cri.amount}
+		) p
+		left outer join (
+		SELECT
+	   	CONCAT(A1.group_ID, A1.CATEGORY_ID) AS CATEGORY_KEY, 
+ 	   	CASE A1.category_parent_LV
+ 	        WHEN 0 THEN A1.category_detail_NM
+ 			WHEN 1 THEN CONCAT(A2.category_detail_NM,' > ', A1.category_detail_NM)
+ 			WHEN 2 THEN CONCAT(A3.category_detail_NM, ' > ', A2.category_detail_NM,' > ', A1.category_detail_NM)
+ 		   END as CATEGORY_NAV
+		FROM PRODUCT_CATEGORY A1
+		LEFT OUTER JOIN PRODUCT_CATEGORY A2
+		ON A1.CATEGORY_PARENT_LV = A2.CATEGORY_LV AND A1.CATEGORY_DETAIL_PARENT_LV = A2.CATEGORY_DETAIL_LV AND A1.GROUP_ID = A2.GROUP_ID
+		LEFT OUTER JOIN PRODUCT_CATEGORY A3
+		ON A2.CATEGORY_PARENT_LV = A3.CATEGORY_LV AND A2.CATEGORY_DETAIL_PARENT_LV = A3.CATEGORY_DETAIL_LV
+		ORDER BY CATEGORY_NAV ASC
+		
+		) a
+		on p.prod_category = a.category_key
+		
+		
+	</select>
+
+
+	<select id="getTotal" resultType="int">
+		select count(*) from product
+		where prod_writer = #{user_id}
+		
+		<if test="cri.startDate != null and cri.startDate != '' ">
+		<![CDATA[and date_format(prod_enddate, '%Y-%m-%d') >= date_format (#{cri.startDate},'%Y-%m-%d')]]>
+		</if>
+
+		<if test="cri.endDate != null and cri.endDate != '' ">
+		<![CDATA[and date_format(prod_enddate, '%Y-%m-%d') <= date_format (#{cri.endDate},'%Y-%m-%d')]]>
+		</if>
+		
+		<if test="cri.searchName != null and cri.searchName != '' ">
+		and prod_name like concat('%', #{cri.searchName}, '%')
+		</if>
+		
+		<if test="cri.searchContent != null and cri.searchContent != '' ">
+		and prod_content like concat('%', #{cri.searchContent}, '%')
+		</if>
+	
+		
+	</select>
+
+	
+	<!-- 카테고리 대분류  -->
+	<select id="getCategory" resultType="CategoryVO">
+		select * from PRODUCT_CATEGORY
+		where category_lv = 1
+	</select>
+	
+	<!-- 카테고리 중분류, 소분류 group id, parent lv, detail parent lv에 매칭 -->
+	<select id="getCategoryChild" resultType="CategoryVO">
+		select * from PRODUCT_CATEGORY
+		where group_id = #{group_id}
+		and category_parent_lv=#{category_lv}
+		and category_detail_parent_lv = #{category_detail_lv}
+	
+	</select>
+	
+	<select id="getProductImg" resultType="ProductUploadVO">
+		select * from PRODUCT_UPLOAD where prod_id = #{prod_id}
+		
+	</select>
+
+
+</mapper>

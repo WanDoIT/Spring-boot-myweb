@@ -1,0 +1,26 @@
+CREATE TABLE PRODUCT(
+PROD_ID INT PRIMARY KEY AUTO_INCREMENT, ## PK (자동증가값)
+PROD_REGDATE TIMESTAMP DEFAULT NOW(), ## 등록일 (기본값 시간형)
+PROD_ENDDATE VARCHAR(20), ## 판매종료일 (문자형 시간)
+PROD_CATEGORY VARCHAR(20), ## 카테고리 키
+PROD_WRITER VARCHAR(20), ## 작성자 FK
+PROD_NAME VARCHAR(300), ## 상품명
+PROD_PRICE INT NOT NULL, ## 가격
+PROD_COUNT INT NOT NULL, ## 재고
+PROD_DISCOUNT INT DEFAULT 0, ## 할인율 (기본값 숫자 0)
+PROD_PURCHASE_YN CHAR(1) DEFAULT 'N' CHECK (PROD_PURCHASE_YN IN ('Y', 'N')), ##체크제약
+PROD_CONTENT VARCHAR(5000), ##내용
+PROD_COMMENT VARCHAR(5000) ##메모
+);
+
+
+############################파일업로드 테이블############################
+CREATE TABLE PRODUCT_UPLOAD (
+   UPLOAD_NO INT PRIMARY KEY auto_increment,
+  FILENAME varchar(100) not null, ##실제파일명
+  FILEPATH varchar(100) not null, ##폴더명
+   UUID varchar(50) not null, ##UUID명
+  REGDATE TIMESTAMP default now(),
+   PROD_ID INT, ##FK
+   PROD_WRITER VARCHAR(20) ##FK
+);

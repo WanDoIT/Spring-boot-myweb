@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- 절대 경로, 상대 경로 모두 가능  -->
+<th:block th:replace="~{./include/basicLayout :: func(~{::.wrap})}">
+
+
+        
+    <div class="wrap">
+        <div class="warp_inner">
+            <!-- left_menu end -->
+            <div class="right_content">
+                <div class="midiaq">
+                    <div class="page_title">상품 관리 > <span class="page_subtitle">상품 상세/수정</span></div>
+                    <form name="####" action="####" method="####">
+                        <div class="full_collum collum">
+                            <ul>
+                                <li class="collum_tit">
+                                    <h2>상품 상세/수정</h2>
+                                    <a href="#">버튼01</a>
+                                    <a href="#">버튼02</a>
+                                    <span class="showtoggle minus"></span>
+                                    <ul>
+                                        <li>
+                                            <table class="board_basic_view">
+                                                <tbody>
+                                                    <tr>
+														<th>상품번호</th>
+														<td><input type="hidden" name="prod_id" value="####"></td>
+													</tr>
+                                                    <tr>
+                                                        <th>판매종료일</th>
+                                                        <td><input type="text" class="datepicker" name="####"
+                                                                placeholder="날짜선택"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>카테고리</th>
+
+                                                        <td colspan="5">
+                                                            <div>수정이 불가능한 옵션입니다(상품관리자에게 문의하세요)</div>
+                                                            대분류 > 중분류 > 소분류
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>등록자ID</th>
+                                                        <td><input type="text" name="####" value="정연주" readonly /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">제목(상품명)</th>
+                                                        <td><input class="inputw99p margin_center" type="text"
+                                                                name="####" value="환불">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>메인사진</th>
+                                                        <td colspan="3">
+                                                            <!--미리보기 폼-->
+                                                            <div class="blockContent">
+                                                                <div class="productText">이미지 수정은 목록을 이용해주세요</div>
+                                                                <div class="productImg">
+                                                                    <div class="imgItem">
+                                                                        <span class="imgKind">대표이미지</span>
+                                                                        <div class="imgWrap">
+                                                                            <div class="imgArea">
+                                                                                <img src="../img/item_main.jpg">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="imgItem">
+                                                                        <span class="imgKind">배너이미지</span>
+                                                                        <div class="imgWrap">
+                                                                            <div class="imgArea">
+                                                                                <img src="../img/item_banner.jpg">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="imgItem">
+                                                                        <span class="imgKind">배너이미지</span>
+                                                                        <div class="imgWrap">
+                                                                            <div class="imgArea">
+                                                                                <img src="../img/item_banner.jpg">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="imgItem">
+                                                                        <span class="imgKind">배너이미지</span>
+                                                                        <div class="imgWrap">
+                                                                            <div class="imgArea">
+                                                                                <img src="../img/item_banner.jpg">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>판매가</th>
+                                                        <td colspan="3"><input type="text" class="inputw150" name="####"
+                                                                value="" placeholder="3000">원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>판매수량</th>
+                                                        <td colspan="3"><input type="text" class="inputw150" name="####"
+                                                                value="" placeholder="숫자로 입력">개</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>할인율</th>
+                                                        <td colspan="3"><input type="text" class="inputw150" name="####"
+                                                                value="" placeholder="15(숫자로 입력)">%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>상품 구매 제한</th>
+                                                        <td colspan="3">
+                                                            <div class="uInputRadioBox">
+                                                                <div class="uInputRadio">
+                                                                    <label>
+                                                                        <input type="radio" name="####" value="N"
+                                                                            checked="checked">
+                                                                        <span class="text">제한안함</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="uInputRadio">
+                                                                    <label>
+                                                                        <input type="radio" name="####" value="Y">
+                                                                        <span class="text">1회 제한</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <th>설명</th>
+                                                        <td colspan="5">
+                                                            <div><textarea class="inputw99p" name="####"
+                                                                    style="height: 200px;">상품설명</textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <th>커맨트 내용</th>
+                                                        <td colspan="5">
+                                                            <div>
+                                                                <textarea class="inputw99p" name="####"
+                                                                    style="height: 200px;">
+안녕하세요. 문의주신 환불 내역은 06/14일에 예금주 정연주님 농협 계좌로 입금완료 확인됩니다.해당 계좌 다시 한번 확인 부탁드립니다.
+추가 문의 사항이 있으시면, 사이버상담실 또는1899-5098 으로 언제든 문의주시면 자세히 상담해 드리도록 하겠습니다.
+※ 상담가능 시간 : 평일(월~금) 9시~18시 (점심시간 12~13시, 주말 공휴일 휴무) 감사합니다.
+                                                        </textarea>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                            <div class="btn_area">
+                                                <a href="#" class="save">저장</a>
+                                                <a href="minwon_list.html" class="revise">목록</a>
+                                                <a href="#" class="delete">삭제</a>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- right_content end -->
+        </div>
+        <div class="dim_layer">
+        </div>
+    </div>
+    <!-- wrap end -->
+   </th:block>
+</html>

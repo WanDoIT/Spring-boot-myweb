@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="func(section)"> 
+<head>
+	<title>연습용</title>
+
+	<meta charset="UTF-8" />
+	<meta charset="EUC-KR" />
+
+	<!--공통 -->
+	<link rel="stylesheet" type="text/css" href="/css/index.css" />
+	<link rel="stylesheet" type="text/css" href="/css/footer.css" />
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/css/loading.css" />  
+	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+		integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<script src="/js/jquery-1.12.1.min.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<script src="/js/style.js"></script>
+
+	<!--개인 -->
+	<link rel="stylesheet" type="text/css" href="/css/modal.css" />
+
+
+
+</head>
+
+	<!-- 실습 main 페이지 템블릿화 -->
+	
+<body>
+	<header class="wrap">
+		<div class="header">
+				<h3 style="color: #fff; position: absolute; left: 20px; top: 27px;">coding404 - 연습용 입니다. 이에 대한 무단 복제 및 배포를 원칙적으로 금합니다.
+						원본파일 및 핸드폰 촬영, 동영상강좌 녹화를 통한 무단 복제 · 배포하는 경우 저작권법 제136조에 의한 저작재산권 침해 죄에 해당될 수 있으니 각별한 주의 바랍니다.</h3>
+				<span class="admin_id"><b style="color:#7866c9;">관리자</b>홍길동 님</span>
+		</div>
+
+	</header>
+	
+	<!-- 좌측 사이드바 -->
+    <aside>
+        <span class="menuBtn">버튼</span>
+        <ul class="sidenav">
+            <li class="sub_menu_toggle">
+                <a href="#">- 상품관리(예제)</a>
+                <ul class="sub_menu ">
+                    <li><a th:href="@{/product/productReg}">-상품등록</a></li>
+                    <li><a th:href="@{/product/productList}">-상품조회 / 수정</a></li>
+                    <li><a href="#">-하단메뉴</a></li>
+                </ul>
+            </li>
+            <li class="sub_menu_toggle">
+                <a href="#">- 게시글 연습(초급)</a>
+                <ul class="sub_menu">
+                    <li><a href="#">-전체 글목록</a></li>
+                    <li><a href="#">-글 등록</a></li>
+                    <li><a href="#">-내글 목록</a></li>
+                </ul>
+            </li>
+            <li class="sub_menu_toggle">
+                <a href="#">- 판매자 공지관리(중급)</a>
+                <ul class="sub_menu">
+                    <li><a href="#">-판매자공지목록</a></li>
+                    <li><a href="#">-판매자공지등록</a></li>
+                    <li><a href="#">-판매자공지보기</a></li>
+                </ul>
+            </li>
+            <li class="sub_menu_toggle">
+                <a href="#">- 예시메뉴</a>
+                <ul class="sub_menu">
+                    <li><a href="#">-예시메뉴</a></li>
+					<li><a href="#">-예시메뉴</a></li>
+					<li><a href="#">-예시메뉴</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+	
+	
+	
+	<section th:replace="${section}">
+		
+	</section>
+	
+	
+	
+	<footer id="footer">
+		<div class="footer_wrap">
+				<div class="footer_top">
+						<!-- 상위 -->
+						<ul class="fl_right">
+								<li><a href="#"><span>Coding404 둘러보기</span></a></li>
+								<li><a href="#"><span>상품등록</span></a></li>
+								<li><a href="#"><span>상품관리</span></a></li>
+								<li><a href="#"><span>상품수정</span></a></li>
+								<li><a href="#"><span>회원</span></a></li>
+								<li><a href="#"><span>고객센터</span></a></li>
+						</ul>
+				</div>
+		</div>
+
+		<div class="footer_wrap2">
+				<div class="footer_bot">
+						<!-- 하위 -->
+		
+						<ul class="fl_left">
+								<li><a href="#">이용약관</a></li>
+								<li><a href="#">위치기반서비스 이용약관</a></li>
+								<li><a href="#">개인정보처리방침</a></li>
+								<li><a href="#">청소년보호정책</a></li>
+								<li><a href="#">제휴/프로모션문의</a></li>
+								<li><a href="#">이메일주소무단수집거부</a></li>
+								<li><a href="#">파트너센터</a></li>
+						</ul>
+						<p>
+								<strong>(주)Coding404</strong>
+								<span>(주소는 비밀)</span>
+								<span>대표이사 : Coding404(PARK)</span>
+								<span>사업자등록번호 : 비밀</span>
+								<span>통신판매업신고번호 : 2018-성남분당B-0004</span>
+								<span>사업자정보확인</span>
+								<br />
+								<span>문의전화 : 비밀 (평일 09:00-18:00, 유료)</span>
+								<span>이메일 : yopy0817@gmail.com</span>
+								<span>호스팅서비스사업자 : (주)AWS</span>
+								<span>© Coding404 Entertainment Corp.</span>
+						</p>
+		
+				</div>
+		</div>
+	</footer>
+	
+</body>	
+<script th:inline="javascript">
+	/*
+	메뉴선택 유지하기 기능
+	sub_menu에 display:block.
+	sub_menu > a링크에 on클래스.
+	sub_menu_toggle > a 에 sub_menu_select 클래스.
+	*/
+	var menu = JSON.parse('[[${uri}]]'); //postHandler에서 보내주는 uri
+	
+	/* $("a[href*='"+menu+"']").addClass("on"); */
+	
+	$(".sub_menu a").each(function(index,item){
+		//href에 uri값이 들어있는지 확인
+		if($(item).attr("href").includes(menu)){
+			$(item).addClass("on");
+			$(item).closest(".sub_menu").css("display","block");
+			$(item).closest(".sub_menu").prev().addClass("sub_menu_select");
+		}
+	})
+</script>
+</th:block>
+
+
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+
+
+<!-- 절대 경로, 상대 경로 모두 가능  -->
+<th:block th:replace="~{./include/basicLayout :: func(~{::.wrap})}">
+
+
+
+
+
+
+	<div class="wrap">
+		<div class="warp_inner">
+
+			<!-- left_menu end -->
+			<div class="right_content">
+				<div class="midiaq">
+					<div class="page_title">관리자검색</div>
+
+					<form name="actionForm" action="productList" method="get">
+				
+					<input type="hidden" name="page" th:value="1">
+					<input type="hidden" name="amount" th:value="${pageVO.amount}">
+					
+						<div class="search_block flfull">
+
+							<div class="fl">
+								<div>
+									<span class="search_th">상품이름 검색</span> <input type="text" class="" name="searchName" th:value="${pageVO.cri.searchName}" placeholder="상품 검색">
+								</div>
+
+								<div>
+									<span class="search_th">상품내용 검색</span> <input type="text" class="" name="searchContent" th:value="${pageVO.cri.searchContent}" placeholder="상품 검색">
+								</div>
+
+								<div>
+									<span class="search_th">판매가 정렬</span> 
+									<select class="" name="searchPrice" >
+										<option value="none" th:selected="${pageVO.cri.searchPrice} == 'none'">정렬방식</option>
+										<option value="asc" th:selected="${pageVO.cri.searchPrice} == 'asc'">낮은순</option>
+										<option value="desc" th:selected="${pageVO.cri.searchPrice} == 'desc'">높은순</option>
+									</select>
+								</div>
+
+								<!-- 2row -->
+								<div class="pdt15"></div>
+								<div>
+									<span class="search_th">판매마감일</span> 
+									<input type="text" class="datepicker" name="startDate" th:value="${pageVO.cri.startDate}" readonly placeholder="날짜선택" /> - 
+									<input type="text" class="datepicker" name="endDate" th:value="${pageVO.cri.endDate}" readonly placeholder="날짜선택" />
+								</div>
+								<!-- 
+							<div>
+								<span class="search_th">처리자 ID</span>
+								<input type="text" class="" placeholder="처리자 ID">
+							</div>
+							 -->
+
+							</div>
+
+							<div class="fr">
+								<div class="search_btn_area">
+									<!-- 
+									<a href="#" class="normal_btn purplebtn">검색</a> 
+									 -->
+									 <input type="submit" class="normal_btn purplebtn" value="검색">
+									<a href="#"	class="normal_btn purplebtn02">등록</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="full_collum collum">
+							<ul>
+								<li class="collum_tit">
+									<h2>상품 관리</h2> 
+									<select class="" id="handleAmount">
+										<option value="10" th:selected="${pageVO.amount} == '10'">10개 보기</option>
+										<option value="20" th:selected="${pageVO.amount} == '20'">20개 보기</option>
+										<option value="40" th:selected="${pageVO.amount} == '40'">40개 보기</option>
+										<option value="80" th:selected="${pageVO.amount} == '80'">80개 보기</option>
+									</select> 
+									<span class="showtoggle minus"></span>
+									<ul>
+										<li>
+											<table cellpadding="0" cellspacing="0" class="col_14"
+												width="100%;">
+												<tr>
+													<th>순서</th>
+													<th>표시</th>
+													<th>상품번호</th>
+													<th>카테고리</th>
+													<th>제목(상품명)</th>
+													<th>등록일</th>
+													<th>판매가</th>
+													<th>재고상태</th>
+													<th>할인율</th>
+													<th>상품 구매제한</th>
+													<th>판매마감일</th>
+													<th>등록자</th>
+												</tr>
+
+												<tr th:each="vo, status: ${list}">
+													<td>[[${status.count}]]</td>
+													<td><a href="#" class="normal_btn">정보수정</a>
+														<!-- 1.modalOn 클래스가 들어가면 모달창 오픈, 2.modal()으로 켤 수 있음 --> 
+														<a href="#" class="normal_btn modalOn">이미지수정</a>
+													</td>
+													<td>[[${vo.prod_id}]]</td>
+													<td>[[${vo.category_nav==null? '없음':vo.category_nav}]]</td>
+
+													<td>
+													<a title="상세보기(클릭)" th:href="@{productDetail(prod_id = ${vo.prod_id})}">
+														[[${vo.prod_name}]]
+													</a>
+													</td>
+													<td>[[${#temporals.format(vo.prod_regdate,'yyyy-MM-dd')}]]</td>
+													<td>[[${vo.prod_price}]]원</td>
+													<td>[[${vo.prod_count}]]개</td>
+													<td>[[${vo.prod_discount}]]%</td>
+													<td>[[${vo.prod_purchase_yn == 'Y' ? "제한없음" :"1회제한"}]]</td>
+													<td>[[${vo.prod_enddate}]]</td>
+													<td>[[${vo.prod_writer}]]</td>
+
+												</tr>
+											</table>
+
+
+											<!-- <div class="page">
+												<ul>
+													<th:block>
+														<li><a th:href="@{productList(page=1)}"><i
+																class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+														</li>
+													</th:block>
+
+													<th:block th:if="${pageVO.prev}">
+														<li style="margin-right: 5px;"><a
+															th:href="@{productList(page=${pageVO.start-1}, amount=${pageVO.amount})}"><i
+																class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+													</th:block>
+
+													<th:block th:each="page : ${pageVO.pageList}">
+														현재 페이지랑 페이지네이션이 같을 때 클래스명 'on' => css 적용 
+														<li th:class="${page == pageVO.page ? 'on' : ''}"><a
+															th:href="@{productList(page=${page}, amount=${pageVO.amount})}">[[${page}]]</a>
+														</li>
+													</th:block>
+
+													<th:block th:if="${pageVO.next}">
+														<li style="margin-left: 5px;"><a
+															th:href="@{productList(page=${pageVO.end + 1}, amount = ${pageVO.amount})}"><i
+																class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+													</th:block>
+
+													<th:block>
+														<li><a
+															th:href="@{productList(page=${pageVO.realEnd})}"><i
+																class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+														</li>
+													</th:block>
+												</ul>
+											</div> -->
+											
+											<div class="page">
+                                 <ul>
+                                    
+                                    <li><a th:href="@{productList(page=1, 
+                                                           amount=${pageVO.amount},
+                                                           startDate=${pageVO.cri.startDate},
+                                                           endDate=${pageVO.cri.endDate},
+                                                           searchName=${pageVO.cri.searchName},
+                                                           searchContent=${pageVO.cri.searchContent},
+                                                           searchPrice=${pageVO.cri.searchPrice} 
+                                                           )}"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                    
+                                    <th:block th:if="${pageVO.prev}">
+                                    <li style="margin-right:5px;">
+                                       <a th:href="@{productList(page=${pageVO.start - 1}, 
+                                                             amount=${pageVO.amount},
+                                                           startDate=${pageVO.cri.startDate},
+                                                           endDate=${pageVO.cri.endDate},
+                                                           searchName=${pageVO.cri.searchName},
+                                                           searchContent=${pageVO.cri.searchContent},
+                                                           searchPrice=${pageVO.cri.searchPrice}
+                                                              )}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                    </th:block>
+                                    
+                                    <th:block th:each="page : ${pageVO.pageList}">
+                                    <li th:class="${page == pageVO.page ? 'on' : ''}">
+                                       <a th:href="@{productList(page=${page}, 
+                                                           amount=${pageVO.amount},
+                                                           startDate=${pageVO.cri.startDate},
+                                                           endDate=${pageVO.cri.endDate},
+                                                           searchName=${pageVO.cri.searchName},
+                                                           searchContent=${pageVO.cri.searchContent},
+                                                           searchPrice=${pageVO.cri.searchPrice} )}">[[${page}]]</a>
+                                    </li>
+                                    </th:block>
+                                    
+                                    <th:block th:if="${pageVO.next}">
+                                    <li style="margin-left:5px;">
+                                       <a th:href="@{productList(page=${pageVO.end + 1}, 
+                                                               amount=${pageVO.amount},
+                                                           startDate=${pageVO.cri.startDate},
+                                                           endDate=${pageVO.cri.endDate},
+                                                           searchName=${pageVO.cri.searchName},
+                                                           searchContent=${pageVO.cri.searchContent},
+                                                           searchPrice=${pageVO.cri.searchPrice} )}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                    </li>
+                                    </th:block>
+                                    
+                                    <li><a th:href="@{productList(page=${pageVO.realEnd}, 
+                                                               amount=${pageVO.amount},
+                                                           startDate=${pageVO.cri.startDate},
+                                                           endDate=${pageVO.cri.endDate},
+                                                           searchName=${pageVO.cri.searchName},
+                                                           searchContent=${pageVO.cri.searchContent},
+                                                           searchPrice=${pageVO.cri.searchPrice} )}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                 
+                                 </ul>
+                              </div>
+											
+										</li>
+
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- 모달창 -->
+		<div id="basicModal" class="modal-overlay">
+			<div class="modal-content">
+				<div class="modalOff">X</div>
+				<p class="title">이미지수정</p>
+
+				<div class="content">
+					<div class="sub-form">
+						<!--미리보기 폼-->
+						<div class="filebox preview-image">
+							<!--1 -->
+							<!--  
+							<div class="left">
+								<span>추가이미지</span> <label class="upload-display" for="a_file">
+									<span class="upload-thumb-wrap"> <img
+										class="upload-thumb" src="../img/item_main.jpg">
+								</span>
+								</label> 
+								
+								<input class="upload-name" value="파일선택" disabled="disabled">
+								<input type="file" name="file" id="a_file" class="upload-hidden">
+								<input type="hidden" value=""> <input type="hidden" value="">
+								<button type="button" class="normal_btn" style="display: block;">삭제</button>
+
+							</div>
+							
+							<div class="left">
+								<span>추가이미지</span> <label class="upload-display" for="b_file">
+									<span class="upload-thumb-wrap"> <img
+										class="upload-thumb" src="../img/plus_btn.png">
+								</span>
+								</label> <input class="upload-name" value="파일선택" disabled="disabled">
+								<input type="file" name="file" id="b_file" class="upload-hidden">
+								<input type="hidden" value=""> <input type="hidden"
+									value="">
+								<button type="button" class="normal_btn" style="display: block;">삭제</button>
+							</div>
+							<div class="left">
+								<span>추가이미지</span> <label class="upload-display" for="c_file">
+									<span class="upload-thumb-wrap"> <img
+										class="upload-thumb" src="../img/plus_btn.png">
+								</span>
+								</label> <input class="upload-name" value="파일선택" disabled="disabled">
+								<input type="file" name="file" id="c_file" class="upload-hidden">
+								<input type="hidden" value=""> <input type="hidden"
+									value="">
+								<button type="button" class="normal_btn" style="display: block;">삭제</button>
+							</div> 
+							-->
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="btn_area">
+					<a href="수정!!" class="save">수정</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- end wrap -->
+</th:block>
+
+<!-- th:block으로 묶어두었기 때문에 화면에 출력하게 하려면 밖에다가 스크립트 작성해야 함 -->
+
+<!-- 모달창 --><script src="/js/modal.js"></script>
+<script th:inline="javascript">
+	var msg = JSON.parse('[[${msg}]]');
+	console.log(msg);
+	if (msg != null) {
+		alert(msg);
+	}
+	
+	//dataHandler
+	var handleAmount = document.getElementById("handleAmount");
+	handleAmount.onchange = function(e) {
+	
+		
+	/* location.href="productList?page=1&amount=" + e.target.value;  */
+ 
+		document.actionForm.amount.value = e.target.value;
+		/* document.actionForm.submit(); */
+	}
+	
+</script>
+
+<!-- 1.modalOn 클래스가 들어가면 모달창 오픈, 2.modal()으로 켤 수 있음 --> 
+<!-- 모달창 제어 -->
+<script>
+	//이미지 수정버튼을 클릭했을 때 modalOn();
+	$(".modalOn").click(function(e){
+		e.preventDefault(); //a링크의 고유이벤트 중지
+		//1.클릭한 대상의 prod_id값 가져오기
+		var prod_id=$(e.target).closest("td").next().html();
+		
+		//2. post방식으로 img데이터 조회
+		$.ajax({
+			url: "../getProductImg",
+			type:"post",
+			data: JSON.stringify({prod_id:prod_id}), //데이터
+			contentType: "application/json", //보내는 데이터타입
+			success: function(result) {
+				console.log(result); //반환된 데이터
+				
+				var str = "";
+				var arr = ['a','b','c'];
+				for(var i=0; i < result.length; i++){
+					str +=	'<div class="left">';
+					str +=	'<span>추가이미지</span> <label class="upload-display" for="'+arr[i]+'_file">';
+					str +=	'<span class="upload-thumb-wrap">';
+					str +=	'<img class="upload-thumb" src="'+'../display/'+result[i].filepath+'/'+result[i].uuid+'/'+result[i].filename+'">';
+					str +=	'</span>';
+					str +=	'</label> ';
+									
+					str +=	'<input class="upload-name" value="파일선택" disabled="disabled">';
+					str +=	'<input type="file" name="file" id="'+arr[i]+'_file" class="upload-hidden">';
+					str +=	'<input type="hidden" value=""> <input type="hidden" value="">';
+					str +=	'<button type="button" class="normal_btn" style="display: block;">삭제</button>';
+					str +=	'<button type="button" class="normal_btn" style="display: block;">다운로드</button>';
+					
+					str +=	'</div>';
+				}
+				$(".filebox").html(str);
+												
+			},
+			error : function(err){
+				alert("이미지 조회 실패");
+			}
+		});
+		//modalOn();
+		
+	});
+	
+</script>
+
+
+
+
+
+</html>

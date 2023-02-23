@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>연습용</title>
+
+    <meta charset="UTF-8" />
+    <meta charset="EUC-KR" />
+
+    <!--공통 -->
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/footer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="../css/loading.css" />  
+    <link rel="stylesheet" type="text/css" href="../css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <script src="../js/jquery-1.12.1.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/style.js"></script>
+    
+
+
+</head>
+
+<body>
+
+    <header class="wrap">
+        <div class="header">
+            <h3 style="color: #fff; position: absolute; left: 20px; top: 27px;">coding404 - 연습용 입니다. 이에 대한 무단 복제 및 배포를 원칙적으로 금합니다.
+                원본파일 및 핸드폰 촬영, 동영상강좌 녹화를 통한 무단 복제 · 배포하는 경우 저작권법 제136조에 의한 저작재산권 침해 죄에 해당될 수 있으니 각별한 주의 바랍니다.</h3>
+            <span class="admin_id"><b style="color:#7866c9;">관리자</b>홍길동 님</span>
+        </div>
+
+    </header>
+
+    <!-- 좌측 사이드바 -->
+    <aside>
+        <span class="menuBtn">버튼</span>
+        <ul class="sidenav">
+            <li class="sub_menu_toggle">
+                <a href="#">- 상품관리(예제)</a>
+                <ul class="sub_menu ">
+                    <li><a href="#">-상품등록</a></li>
+                    <li><a href="#">-상품조회 / 수정</a></li>
+                    <li><a href="#">-하단메뉴</a></li>
+                </ul>
+            </li>
+            <li class="sub_menu_toggle">
+                <a href="#">- 게시글 연습(초급)</a>
+                <ul class="sub_menu">
+                    <li><a href="#">-전체 글목록</a></li>
+                    <li><a href="#">-글 등록</a></li>
+                    <li><a href="#">-내글 목록</a></li>
+                </ul>
+            </li>
+            <li class="sub_menu_toggle">
+                <a href="#">- 판매자 공지관리(중급)</a>
+                <ul class="sub_menu">
+                    <li><a href="#">-판매자공지목록</a></li>
+                    <li><a href="#">-판매자공지등록</a></li>
+                    <li><a href="#">-판매자공지보기</a></li>
+                </ul>
+            </li>
+            <li class="sub_menu_toggle">
+                <a href="#">- 예시메뉴</a>
+                <ul class="sub_menu">
+                    <li><a href="#">-예시메뉴</a></li>
+					<li><a href="#">-예시메뉴</a></li>
+					<li><a href="#">-예시메뉴</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+
+
+    <div class="wrap">
+        <div class="warp_inner">
+            <div class="right_content">
+                <div class="midiaq">
+                    <div class="page_title">회원 관리 > 회원 정보</div>
+
+                    <form name="">
+                        <div class="full_collum collum">
+                            <ul>
+                                <li class="collum_tit">
+                                    <h2>회원 정보</h2> 
+                                    <a href="#" class="collum_tit_btn">버튼01</a>
+                                    <a href="#" class="collum_tit_btn02">버튼02</a>
+                                    <span class="showtoggle minus"></span>
+                                    <ul>
+                                        <li>
+                                            <table cellpadding="0" cellspacing="0" class="col_tb_4" width="100%;">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <td>20549153</td>
+                                                    <th>이름</th>
+                                                    <td>홍길동</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>비밀번호</th>
+                                                    <td><input type="password" class="inputw290" value=""></td>
+                                                    <th>비밀번호 초기화</th>
+                                                    <td>
+                                                        <button class="r_password_btn">비밀번호 초기화</button>
+                                                        A1234 로 초기화합니다
+                                                    </td>
+                                                </tr>
+    
+                                                <tr>
+                                                    <th>휴대폰 번호</th>
+                                                    <td colspan="3">
+                                                        <select name="cellphone"  class="inputw65">
+                                                        <option value="010" checked="checked">010</option>
+                                                        <option value="011">011</option>		
+                                                    </select>
+                                                        - <input  type="text" class="inputw65"></input> - <input  type="text" class="inputw65"></input>
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <!-- 
+                                                <tr>
+                                                    <th>전자메일</th>
+                                                    <td colspan="3">
+                                                        <input class="inputw90" type="text"></input> @ <input class="inputw90" type="text"></input>
+                                                        <select name="email" class="inputw90">
+                                                        <option value="직접입력" checked="checked">직접입력</option>
+                                                        <option value="네이버">naver</option>		
+                                                    </select>
+                                                    </td>
+                                                </tr>
+                                                 -->
+                                                <tr>
+                                                    <th rowspan="2">주소</th>
+                                                    <td colspan="3">
+    
+                                                        <input class="inputw140" type="text"></input> - <input class="inputw140"  type="text"></input><button class="normal_btn post_btn">우편번호</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><input class="inputw300" type="text"></input> <input class="inputw300" type="text"></input>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>SNS 수신동의</th>
+                                                    <td>
+                                                        <label class="radio_box"><input type="radio" name="agree_type1" checked><i class="radio_icon"></i>동의함</label>
+                                                        <label class="radio_box"><input type="radio" name="agree_type1"><i class="radio_icon"></i>동의하지 않음</label>
+                                                        
+                                                    </td>
+                                                    <!-- 
+                                                    <th>메일 수신동의</th>
+                                                    <td>
+                                                        <label class="radio_box"><input type="radio" name="agree_type2" checked><i class="radio_icon"></i>동의함</label>
+                                                        <label class="radio_box"><input type="radio" name="agree_type2"><i class="radio_icon"></i>동의하지 않음</label>
+                                                        
+                                                    </td>
+                                                     -->
+                                                </tr>
+                                                <tr> 
+                                                    <th>프로필</th>
+                                                    <td colspan="3">
+                                                      <div class="filebox preview-image">
+                                                        <!--1 -->
+                                                        <div class="left">
+                                                            <label class="upload-display" for="main_file">
+                                                                <div class="upload-thumb-wrap">
+                                                                    <img class="upload-thumb" src="../img/plus_btn.png" >
+                                                                </div>
+                                                            </label>
+                                                            <input class="upload-name" value="파일선택" disabled="disabled">
+                                                            <input type="file" name="file" id="main_file" class="upload-hidden">
+                                                        </div>
+                                                      </div>
+                                                    
+                                                    </td>
+                                                </tr>
+                                               
+                                            </table>
+                                        </li>
+                                        <div class="btn_area02">
+                                            <a href="#" class="save">저장</a>
+                                            <a href="#" class="revise mglr13">목록</a>
+                                            <a href="#" class="delete">탈퇴</a>
+                                        </div>
+                                    </ul>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- right_content end -->
+            </div>
+
+
+            <!-- warp_inner end -->
+            <div class="dim_layer">
+
+            </div>
+            <!-- wrap end -->
+        </div>
+    </div>  
+        
+</body>
+
+</html>
